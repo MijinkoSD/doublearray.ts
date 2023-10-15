@@ -4,11 +4,13 @@ import type {
   ArrayBuffer,
   BC,
   BCValue,
+  DoubleArray,
   DoubleArrayBuilder,
+  DoubleArrayInstance,
   Key,
 } from "./types";
 
-let doublearray;
+let doublearray: DoubleArray;
 
 (() => {
   // "use strict";
@@ -480,7 +482,7 @@ let doublearray;
   /**
    * Factory method of double array
    */
-  const DoubleArray = (bc: BC) => {
+  const DoubleArray = (bc: BC): DoubleArrayInstance => {
     bc_member = bc; // BASE and CHECK
     bc_member.shrink();
 
