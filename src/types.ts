@@ -2,6 +2,14 @@ export type ArrayBuffer = IntArrayBuffer | UintArrayBuffer;
 export type IntArrayBuffer = Int8Array | Int16Array | Int32Array;
 export type UintArrayBuffer = Uint8Array | Uint16Array | Uint32Array;
 
+export interface DoubleArray {
+  builder: (initial_size: number) => DoubleArrayBuilder;
+  load: (
+    base_buffer: ArrayBuffer,
+    check_buffer: ArrayBuffer,
+  ) => DoubleArrayInstance;
+}
+
 export interface BC {
   getBaseBuffer: () => ArrayBuffer;
   getCheckBuffer: () => ArrayBuffer;
@@ -34,9 +42,9 @@ export interface DoubleArrayBuilder {
    *
    * @param {Array} keys Array of keys. A key is a Object which has properties 'k', 'v'.
    * 'k' is a key string, 'v' is a record assigned to that key.
-   * @return {DoubleArray} Compiled double array
+   * @return {DoubleArrayInstance} Compiled double array
    */
-  build: (keys: Key[], sorted: boolean) => DoubleArray | number;
+  build: (keys: Key[], sorted: boolean) => DoubleArrayInstance | number;
 
   /**
    * Append nodes to BASE and CHECK array recursively
@@ -71,7 +79,7 @@ export interface DoubleArrayBuilder {
   isUnusedNode: (index: number) => boolean;
 }
 
-export interface DoubleArray {
+export interface DoubleArrayInstance {
   /**
    * Look up a given key in this trie
    *
