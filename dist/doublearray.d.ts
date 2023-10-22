@@ -1,3 +1,8 @@
-import type { DoubleArray } from "./types";
-declare let doublearray: DoubleArray;
+import DoubleArrayBuilder from "./doubleArrayBuilder";
+import DoubleArray from "./doubleArrayClass";
+import type { ArrayBuffer } from "./types";
+declare const doublearray: {
+    builder: (initial_size: number) => DoubleArrayBuilder;
+    load: (base_buffer: ArrayBuffer, check_buffer: ArrayBuffer) => DoubleArray;
+};
 export default doublearray;
