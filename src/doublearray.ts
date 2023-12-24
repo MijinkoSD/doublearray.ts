@@ -5,16 +5,16 @@ import DoubleArrayBuilder from "./doubleArrayBuilder";
 import DoubleArray from "./doubleArrayClass";
 import type { ArrayBuffer } from "./types";
 
-"use strict";
+("use strict");
 
 // public methods
 const doublearray = {
-  builder: function (initial_size: number) {
+  builder: function (initial_size?: number) {
     return new DoubleArrayBuilder(initial_size);
   },
   load: function (
     base_buffer: ArrayBuffer,
-    check_buffer: ArrayBuffer,
+    check_buffer: ArrayBuffer
   ): DoubleArray {
     var bc = new BC(0);
     bc.loadBaseBuffer(base_buffer);

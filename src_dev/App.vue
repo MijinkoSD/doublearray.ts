@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import doublearray from "@/doublearray.ts";
+import doublearray from "../src/doublearray";
 
 const words = [
   { k: "a", v: 1 },
