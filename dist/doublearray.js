@@ -2,7 +2,7 @@
 import BC from "./bc";
 import DoubleArrayBuilder from "./doubleArrayBuilder";
 import DoubleArray from "./doubleArrayClass";
-"use strict";
+("use strict");
 // public methods
 const doublearray = {
     builder: function (initial_size) {
