@@ -23,7 +23,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.2",

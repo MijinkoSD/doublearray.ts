@@ -1,8 +1,8 @@
 // Copyright (c) 2014 Takuya Asano All Rights Reserved.
 
 import { describe, it, expect, beforeEach } from "vitest";
-import doublearray from "../src/doublearray";
-import DoubleArray from "../src/doubleArrayClass";
+import doublearray from "../src/doublearray.js";
+import DoubleArray from "../src/doubleArrayClass.js";
 
 describe("doublearray", () => {
   //   before(function (done) {
