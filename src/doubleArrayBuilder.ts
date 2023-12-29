@@ -1,8 +1,8 @@
-import BC from "./bc";
-import DoubleArray from "./doubleArrayClass";
-import { ROOT_ID, TERM_CHAR, TERM_CODE } from "./properties";
-import { Key } from "./types";
-import { stringToUtf8Bytes } from "./utilities";
+import BC from "./bc.js";
+import DoubleArray from "./doubleArrayClass.js";
+import { ROOT_ID, TERM_CHAR, TERM_CODE } from "./properties.js";
+import { Key } from "./types.js";
+import { stringToUtf8Bytes } from "./utilities.js";
 
 export default class DoubleArrayBuilder {
   bc: BC;
@@ -91,7 +91,7 @@ export default class DoubleArrayBuilder {
     parent_index: number,
     position: number,
     start: number,
-    length: number,
+    length: number
   ) {
     var children_info = this.getChildrenInfo(position, start, length);
     var _base = this.findAllocatableBase(children_info);
@@ -110,17 +110,12 @@ export default class DoubleArrayBuilder {
     }
   }
 
-  getChildrenInfo(
-    position: number,
-    start: number,
-    length: number,
-  ): Int32Array {
+  getChildrenInfo(position: number, start: number, length: number): Int32Array {
     const start_key = this.keys[start];
     if (start_key.k === null) return new Int32Array();
     const start_key_k = start_key.k[position];
-    var current_char = typeof start_key_k === "number"
-      ? start_key_k.toString()
-      : start_key_k;
+    var current_char =
+      typeof start_key_k === "number" ? start_key_k.toString() : start_key_k;
     var i = 0;
     var children_info = new Int32Array(length * 3);
 
@@ -133,9 +128,8 @@ export default class DoubleArrayBuilder {
       const next_key = this.keys[next_pos];
       if (next_key.k === null) return new Int32Array();
       const next_key_k = next_key.k[position];
-      var next_char = typeof next_key_k === "number"
-        ? next_key_k.toString()
-        : next_key_k;
+      var next_char =
+        typeof next_key_k === "number" ? next_key_k.toString() : next_key_k;
       if (current_char !== next_char) {
         children_info[i++] = next_pos - start_pos; // length (current)
 
@@ -151,11 +145,7 @@ export default class DoubleArrayBuilder {
     return children_info;
   }
 
-  setBC(
-    parent_id: number,
-    children_info: Int32Array,
-    _base: number,
-  ) {
+  setBC(parent_id: number, children_info: Int32Array, _base: number) {
     var bc = this.bc;
 
     bc.setBase(parent_id, _base); // Update BASE of parent node

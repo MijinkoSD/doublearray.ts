@@ -1,5 +1,5 @@
-import BC from "./bc";
-import { BCCalc, Key } from "./types";
+import BC from "./bc.js";
+import { BCCalc, Key } from "./types.js";
 export default class DoubleArray {
     bc: BC;
     /**

@@ -1,5 +1,5 @@
-import { NOT_FOUND, ROOT_ID, TERM_CHAR, TERM_CODE } from "./properties";
-import { arrayCopy, stringToUtf8Bytes, utf8BytesToString } from "./utilities";
+import { NOT_FOUND, ROOT_ID, TERM_CHAR, TERM_CODE } from "./properties.js";
+import { arrayCopy, stringToUtf8Bytes, utf8BytesToString, } from "./utilities.js";
 export default class DoubleArray {
     /**
      * Factory method of double array

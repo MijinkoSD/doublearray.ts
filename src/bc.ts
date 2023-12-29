@@ -5,9 +5,9 @@ import {
   CHECK_SIGNED,
   MEMORY_EXPAND_RATIO,
   ROOT_ID,
-} from "./properties";
-import { ArrayBuffer, BCCalc, BCValue } from "./types";
-import { newArrayBuffer } from "./utilities";
+} from "./properties.js";
+import { ArrayBuffer, BCCalc, BCValue } from "./types.js";
+import { newArrayBuffer } from "./utilities.js";
 
 export default class BC {
   initial_size: number;
@@ -45,7 +45,8 @@ export default class BC {
     this.initCheck(this.check.array, ROOT_ID + 1, this.check.array.length);
   }
 
-  initBase(_base: ArrayBuffer, start: number, end: number) { // 'end' index does not include
+  initBase(_base: ArrayBuffer, start: number, end: number) {
+    // 'end' index does not include
     for (var i = start; i < end; i++) {
       _base[i] = -i + 1; // inversed previous empty node index
     }
@@ -72,7 +73,7 @@ export default class BC {
     var base_new_array = newArrayBuffer(
       this.base.signed,
       this.base.bytes,
-      new_size,
+      new_size
     );
     this.initBase(base_new_array, this.base.array.length, new_size); // init this.base in new range
     base_new_array.set(this.base.array);
@@ -82,7 +83,7 @@ export default class BC {
     var check_new_array = newArrayBuffer(
       this.check.signed,
       this.check.bytes,
-      new_size,
+      new_size
     );
     this.initCheck(check_new_array, this.check.array.length, new_size); // init this.check in new range
     check_new_array.set(this.check.array);

@@ -1,7 +1,11 @@
-import BC from "./bc";
-import { NOT_FOUND, ROOT_ID, TERM_CHAR, TERM_CODE } from "./properties";
-import { BCCalc, Key } from "./types";
-import { arrayCopy, stringToUtf8Bytes, utf8BytesToString } from "./utilities";
+import BC from "./bc.js";
+import { NOT_FOUND, ROOT_ID, TERM_CHAR, TERM_CODE } from "./properties.js";
+import { BCCalc, Key } from "./types.js";
+import {
+  arrayCopy,
+  stringToUtf8Bytes,
+  utf8BytesToString,
+} from "./utilities.js";
 
 export default class DoubleArray {
   bc: BC;

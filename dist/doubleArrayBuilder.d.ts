@@ -1,6 +1,6 @@
-import BC from "./bc";
-import DoubleArray from "./doubleArrayClass";
-import { Key } from "./types";
+import BC from "./bc.js";
+import DoubleArray from "./doubleArrayClass.js";
+import { Key } from "./types.js";
 export default class DoubleArrayBuilder {
     bc: BC;
     keys: Key[];

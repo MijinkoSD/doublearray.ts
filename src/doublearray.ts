@@ -1,11 +1,9 @@
 // Copyright (c) 2014 Takuya Asano All Rights Reserved.
 
-import BC from "./bc";
-import DoubleArrayBuilder from "./doubleArrayBuilder";
-import DoubleArray from "./doubleArrayClass";
-import type { ArrayBuffer } from "./types";
-
-("use strict");
+import BC from "./bc.js";
+import DoubleArrayBuilder from "./doubleArrayBuilder.js";
+import DoubleArray from "./doubleArrayClass.js";
+import type { ArrayBuffer } from "./types.js";
 
 // public methods
 const doublearray = {

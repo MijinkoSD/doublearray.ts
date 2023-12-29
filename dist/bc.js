@@ -1,5 +1,5 @@
-import { BASE_BYTES, BASE_SIGNED, CHECK_BYTES, CHECK_SIGNED, MEMORY_EXPAND_RATIO, ROOT_ID, } from "./properties";
-import { newArrayBuffer } from "./utilities";
+import { BASE_BYTES, BASE_SIGNED, CHECK_BYTES, CHECK_SIGNED, MEMORY_EXPAND_RATIO, ROOT_ID, } from "./properties.js";
+import { newArrayBuffer } from "./utilities.js";
 export default class BC {
     constructor(initial_size) {
         Object.defineProperty(this, "initial_size", {
@@ -51,6 +51,7 @@ export default class BC {
         this.initCheck(this.check.array, ROOT_ID + 1, this.check.array.length);
     }
     initBase(_base, start, end) {
+        // 'end' index does not include
         for (var i = start; i < end; i++) {
             _base[i] = -i + 1; // inversed previous empty node index
         }

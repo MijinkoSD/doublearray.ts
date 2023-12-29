@@ -1,8 +1,7 @@
 // Copyright (c) 2014 Takuya Asano All Rights Reserved.
-import BC from "./bc";
-import DoubleArrayBuilder from "./doubleArrayBuilder";
-import DoubleArray from "./doubleArrayClass";
-("use strict");
+import BC from "./bc.js";
+import DoubleArrayBuilder from "./doubleArrayBuilder.js";
+import DoubleArray from "./doubleArrayClass.js";
 // public methods
 const doublearray = {
     builder: function (initial_size) {

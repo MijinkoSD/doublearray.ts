@@ -1,7 +1,7 @@
-import BC from "./bc";
-import DoubleArray from "./doubleArrayClass";
-import { ROOT_ID, TERM_CHAR, TERM_CODE } from "./properties";
-import { stringToUtf8Bytes } from "./utilities";
+import BC from "./bc.js";
+import DoubleArray from "./doubleArrayClass.js";
+import { ROOT_ID, TERM_CHAR, TERM_CODE } from "./properties.js";
+import { stringToUtf8Bytes } from "./utilities.js";
 export default class DoubleArrayBuilder {
     /**
      * Factory method of double array
@@ -108,9 +108,7 @@ export default class DoubleArrayBuilder {
         if (start_key.k === null)
             return new Int32Array();
         const start_key_k = start_key.k[position];
-        var current_char = typeof start_key_k === "number"
-            ? start_key_k.toString()
-            : start_key_k;
+        var current_char = typeof start_key_k === "number" ? start_key_k.toString() : start_key_k;
         var i = 0;
         var children_info = new Int32Array(length * 3);
         children_info[i++] = parseInt(current_char); // char (current)
@@ -122,9 +120,7 @@ export default class DoubleArrayBuilder {
             if (next_key.k === null)
                 return new Int32Array();
             const next_key_k = next_key.k[position];
-            var next_char = typeof next_key_k === "number"
-                ? next_key_k.toString()
-                : next_key_k;
+            var next_char = typeof next_key_k === "number" ? next_key_k.toString() : next_key_k;
             if (current_char !== next_char) {
                 children_info[i++] = next_pos - start_pos; // length (current)
                 children_info[i++] = parseInt(next_char); // char (next)

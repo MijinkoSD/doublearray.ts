@@ -1,4 +1,4 @@
-import { ArrayBuffer, BCCalc, BCValue } from "./types";
+import { ArrayBuffer, BCCalc, BCValue } from "./types.js";
 export default class BC {
     initial_size: number;
     first_unused_node: number;

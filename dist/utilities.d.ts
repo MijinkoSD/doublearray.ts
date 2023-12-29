@@ -1,4 +1,4 @@
-import type { ArrayBuffer } from "./types";
+import type { ArrayBuffer } from "./types.js";
 export declare const newArrayBuffer: (signed: boolean, bytes: number, size: number) => ArrayBuffer;
 export declare const arrayCopy: (src: ArrayBuffer, src_offset: number, length: number) => Uint8Array;
 /**
