@@ -1,11 +1,8 @@
-Double-Array
-============
+# Double-Array
 
-JavaScript implementation of Double-Array trie.
+TypeScript implementation of Double-Array trie.
 
-
-Usage
------
+## Usage
 
 ### Build
 
@@ -35,7 +32,6 @@ Browser example
 
     var trie = doublearray.builder().build(words);
 
-
 Method chaining
 
     var trie = doublearray
@@ -46,7 +42,6 @@ Method chaining
            .append('奈良先端', 4)
            .append('奈良先端科学技術大学院大学', 5)
            .build();
-
 
 ### Search
 
@@ -59,7 +54,6 @@ Method chaining
     //      { v: 4, k: '奈良先端' },
     //      { v: 5, k: '奈良先端科学技術大学院大学' } ]
 
-
 ### Load
 
 Get BASE or CHECK buffer as Int32Array of typed array
@@ -71,9 +65,7 @@ Load and create a new DoubleArray object from original buffers
 
     var loaded_trie = doublearray.load(base_buffer, check_buffer);
 
-
-Copyright and license
----------------------
+## Copyright and license
 
 Copyright (c) 2014 Takuya Asano All Rights Reserved.
 
