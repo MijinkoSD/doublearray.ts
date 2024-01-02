@@ -1,6 +1,6 @@
 // Copyright (c) 2014 Takuya Asano All Rights Reserved.
 
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, beforeAll } from "vitest";
 import doublearray from "../src/doublearray.js";
 import DoubleArray from "../src/doubleArrayClass.js";
 
@@ -70,5 +70,35 @@ describe("doublearray", () => {
       expect(trie.bc.getBaseBuffer()).toEqual(load_trie.bc.getBaseBuffer());
       expect(trie.bc.getCheckBuffer()).toEqual(load_trie.bc.getCheckBuffer());
     });
+  });
+});
+
+describe("test from README.md", () => {
+  let trie: DoubleArray;
+  beforeAll(() => {
+    const words = [
+      { k: "a", v: 1 },
+      { k: "abc", v: 2 },
+      { k: "奈良", v: 3 },
+      { k: "奈良先端", v: 4 },
+      { k: "奈良先端科学技術大学院大学", v: 5 },
+    ];
+    trie = doublearray.builder().build(words);
+  });
+
+  it("contain", () => {
+    expect(trie.contain("a")).toBeTruthy();
+  });
+
+  it("lookup", () => {
+    expect(trie.lookup("abc")).toBe(2);
+  });
+
+  it("commonPrefixSearch", () => {
+    expect(trie.commonPrefixSearch("奈良先端科学技術大学院大学")).toEqual([
+      { v: 3, k: "奈良" },
+      { v: 4, k: "奈良先端" },
+      { v: 5, k: "奈良先端科学技術大学院大学" },
+    ]);
   });
 });
