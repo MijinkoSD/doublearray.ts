@@ -47,11 +47,11 @@ export default class BC {
 
   initBase(_base: ArrayBuffer, start: number, end: number) {
     // 'end' index does not include
-    for (var i = start; i < end; i++) {
+    for (let i = start; i < end; i++) {
       _base[i] = -i + 1; // inversed previous empty node index
     }
     if (0 < this.check.array[this.check.array.length - 1]) {
-      var last_used_id = this.check.array.length - 2;
+      let last_used_id = this.check.array.length - 2;
       while (0 < this.check.array[last_used_id]) {
         last_used_id--;
       }
@@ -60,17 +60,17 @@ export default class BC {
   }
 
   initCheck(_check: ArrayBuffer, start: number, end: number) {
-    for (var i = start; i < end; i++) {
+    for (let i = start; i < end; i++) {
       _check[i] = -i - 1; // inversed next empty node index
     }
   }
 
   realloc(min_size: number) {
     // expand arrays size by given ratio
-    var new_size = min_size * MEMORY_EXPAND_RATIO;
+    const new_size = min_size * MEMORY_EXPAND_RATIO;
     // console.log('re-allocate memory to ' + new_size);
 
-    var base_new_array = newArrayBuffer(
+    const base_new_array = newArrayBuffer(
       this.base.signed,
       this.base.bytes,
       new_size
@@ -80,7 +80,7 @@ export default class BC {
     // this.base.array = null; // explicit GC
     this.base.array = base_new_array;
 
-    var check_new_array = newArrayBuffer(
+    const check_new_array = newArrayBuffer(
       this.check.signed,
       this.check.bytes,
       new_size
@@ -155,7 +155,7 @@ export default class BC {
     return this.first_unused_node;
   }
   shrink() {
-    var last_index = this.size() - 1;
+    let last_index = this.size() - 1;
     while (true) {
       if (0 <= this.check.array[last_index]) {
         break;
@@ -166,9 +166,9 @@ export default class BC {
     this.check.array = this.check.array.subarray(0, last_index + 2); // keep last unused node
   }
   calc(): BCCalc {
-    var unused_count = 0;
-    var size = this.check.array.length;
-    for (var i = 0; i < size; i++) {
+    let unused_count = 0;
+    const size = this.check.array.length;
+    for (let i = 0; i < size; i++) {
       if (this.check.array[i] < 0) {
         unused_count++;
       }
@@ -181,14 +181,13 @@ export default class BC {
   }
   dump() {
     // for debug
-    var dump_base = "";
-    var dump_check = "";
+    let dump_base = "";
+    let dump_check = "";
 
-    var i;
-    for (i = 0; i < this.base.array.length; i++) {
+    for (let i = 0; i < this.base.array.length; i++) {
       dump_base = dump_base + " " + this.getBase(i);
     }
-    for (i = 0; i < this.check.array.length; i++) {
+    for (let i = 0; i < this.check.array.length; i++) {
       dump_check = dump_check + " " + this.getCheck(i);
     }
 

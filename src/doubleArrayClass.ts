@@ -25,17 +25,17 @@ export default class DoubleArray {
    * @return {Boolean} True if this trie contains a given key
    */
   contain(key: string): boolean {
-    var bc = this.bc;
+    const bc = this.bc;
 
     key += TERM_CHAR;
-    var buffer = stringToUtf8Bytes(key);
+    const buffer = stringToUtf8Bytes(key);
     if (buffer === null) return false;
 
-    var parent = ROOT_ID;
-    var child = NOT_FOUND;
+    let parent = ROOT_ID;
+    let child = NOT_FOUND;
 
-    for (var i = 0; i < buffer.length; i++) {
-      var code = buffer[i];
+    for (let i = 0; i < buffer.length; i++) {
+      const code = buffer[i];
 
       child = this.traverse(parent, code);
       if (child === NOT_FOUND) {
@@ -62,14 +62,14 @@ export default class DoubleArray {
    */
   lookup(key: string): number {
     key += TERM_CHAR;
-    var buffer = stringToUtf8Bytes(key);
+    const buffer = stringToUtf8Bytes(key);
     if (buffer === null) return NOT_FOUND;
 
-    var parent = ROOT_ID;
-    var child = NOT_FOUND;
+    let parent = ROOT_ID;
+    let child = NOT_FOUND;
 
-    for (var i = 0; i < buffer.length; i++) {
-      var code = buffer[i];
+    for (let i = 0; i < buffer.length; i++) {
+      const code = buffer[i];
       child = this.traverse(parent, code);
       if (child === NOT_FOUND) {
         return NOT_FOUND;
@@ -77,7 +77,7 @@ export default class DoubleArray {
       parent = child;
     }
 
-    var base = this.bc.getBase(child);
+    const base = this.bc.getBase(child);
     if (base <= 0) {
       // leaf node
       return -base - 1;
@@ -95,16 +95,16 @@ export default class DoubleArray {
    * respectively) properties assigned to matched string
    */
   commonPrefixSearch(key: string): Partial<Key>[] {
-    var buffer = stringToUtf8Bytes(key);
+    const buffer = stringToUtf8Bytes(key);
     if (buffer === null) return [];
 
-    var parent = ROOT_ID;
-    var child = NOT_FOUND;
+    let parent = ROOT_ID;
+    let child = NOT_FOUND;
 
-    var result = [];
+    const result = [];
 
-    for (var i = 0; i < buffer.length; i++) {
-      var code = buffer[i];
+    for (let i = 0; i < buffer.length; i++) {
+      const code = buffer[i];
 
       child = this.traverse(parent, code);
 
@@ -112,12 +112,12 @@ export default class DoubleArray {
         parent = child;
 
         // look forward by terminal character code to check this node is a leaf or not
-        var grand_child = this.traverse(child, TERM_CODE);
+        const grand_child = this.traverse(child, TERM_CODE);
 
         if (grand_child !== NOT_FOUND) {
-          var base = this.bc.getBase(grand_child);
+          const base = this.bc.getBase(grand_child);
 
-          var r: Partial<Key> = {};
+          const r: Partial<Key> = {};
 
           if (base <= 0) {
             // If child is a leaf node, add record to result
@@ -139,7 +139,7 @@ export default class DoubleArray {
   }
 
   traverse(parent: number, code: number): number {
-    var child = this.bc.getBase(parent) + code;
+    const child = this.bc.getBase(parent) + code;
     if (this.bc.getCheck(child) === parent) {
       return child;
     } else {
