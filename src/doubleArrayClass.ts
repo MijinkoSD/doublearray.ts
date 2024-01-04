@@ -101,7 +101,7 @@ export default class DoubleArray {
     let parent = ROOT_ID;
     let child = NOT_FOUND;
 
-    const result = [];
+    const result: Partial<Key>[] = [];
 
     for (let i = 0; i < buffer.length; i++) {
       const code = buffer[i];

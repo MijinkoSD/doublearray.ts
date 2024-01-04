@@ -82,6 +82,9 @@ describe("test from README.md", () => {
       { k: "奈良", v: 3 },
       { k: "奈良先端", v: 4 },
       { k: "奈良先端科学技術大学院大学", v: 5 },
+      { k: "ト", v: 6 },
+      { k: "トト", v: 7 },
+      { k: "トトロ", v: 8 },
     ];
     trie = doublearray.builder().build(words);
   });
@@ -99,6 +102,14 @@ describe("test from README.md", () => {
       { v: 3, k: "奈良" },
       { v: 4, k: "奈良先端" },
       { v: 5, k: "奈良先端科学技術大学院大学" },
+    ]);
+  });
+
+  it("commonPrefixSearch2", () => {
+    expect(trie.commonPrefixSearch("トトロ")).toEqual([
+      { v: 6, k: "ト" },
+      { v: 7, k: "トト" },
+      { v: 8, k: "トトロ" },
     ]);
   });
 });

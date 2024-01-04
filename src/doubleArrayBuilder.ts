@@ -60,7 +60,7 @@ export default class DoubleArrayBuilder {
     if (sorted) {
       this.keys = buff_keys;
     } else {
-      this.keys = buff_keys.sort(function (k1, k2) {
+      this.keys = buff_keys.sort((k1, k2) => {
         const b1 = k1.k;
         const b2 = k2.k;
         if (b1 === null && b2 === null) return 0;
