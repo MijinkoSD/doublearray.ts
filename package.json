@@ -1,6 +1,6 @@
 {
   "name": "doublearray.ts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "TypeScript implementation of Double-Array trie",
   "main": "./dist/doublearray.js",
   "repository": {
