@@ -7,14 +7,11 @@ import type { ArrayBuffer } from "./types.js";
 
 // public methods
 const doublearray = {
-  builder: function (initial_size?: number) {
+  builder: (initial_size?: number): DoubleArrayBuilder => {
     return new DoubleArrayBuilder(initial_size);
   },
-  load: function (
-    base_buffer: ArrayBuffer,
-    check_buffer: ArrayBuffer
-  ): DoubleArray {
-    var bc = new BC(0);
+  load: (base_buffer: ArrayBuffer, check_buffer: ArrayBuffer): DoubleArray => {
+    const bc = new BC(0);
     bc.loadBaseBuffer(base_buffer);
     bc.loadCheckBuffer(check_buffer);
     return new DoubleArray(bc);

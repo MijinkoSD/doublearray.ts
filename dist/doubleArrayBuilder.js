@@ -51,7 +51,7 @@ export default class DoubleArrayBuilder {
             sorted = false;
         }
         // Convert key string to ArrayBuffer
-        var buff_keys = keys.map(function (k) {
+        const buff_keys = keys.map(function (k) {
             return {
                 k: stringToUtf8Bytes(k.k + TERM_CHAR),
                 v: k.v,
@@ -62,7 +62,7 @@ export default class DoubleArrayBuilder {
             this.keys = buff_keys;
         }
         else {
-            this.keys = buff_keys.sort(function (k1, k2) {
+            this.keys = buff_keys.sort((k1, k2) => {
                 const b1 = k1.k;
                 const b2 = k2.k;
                 if (b1 === null && b2 === null)
@@ -72,7 +72,7 @@ export default class DoubleArrayBuilder {
                 else if (b2 === null)
                     return 1;
                 const min_length = Math.min(b1.length, b2.length);
-                for (var pos = 0; pos < min_length; pos++) {
+                for (let pos = 0; pos < min_length; pos++) {
                     if (b1[pos] === b2[pos]) {
                         continue;
                     }
@@ -89,17 +89,17 @@ export default class DoubleArrayBuilder {
      * Append nodes to BASE and CHECK array recursively
      */
     _build(parent_index, position, start, length) {
-        var children_info = this.getChildrenInfo(position, start, length);
-        var _base = this.findAllocatableBase(children_info);
+        const children_info = this.getChildrenInfo(position, start, length);
+        const _base = this.findAllocatableBase(children_info);
         this.setBC(parent_index, children_info, _base);
-        for (var i = 0; i < children_info.length; i = i + 3) {
-            var child_code = children_info[i];
+        for (let i = 0; i < children_info.length; i = i + 3) {
+            const child_code = children_info[i];
             if (child_code === TERM_CODE) {
                 continue;
             }
-            var child_start = children_info[i + 1];
-            var child_len = children_info[i + 2];
-            var child_index = _base + child_code;
+            const child_start = children_info[i + 1];
+            const child_len = children_info[i + 2];
+            const child_index = _base + child_code;
             this._build(child_index, position + 1, child_start, child_len);
         }
     }
@@ -108,19 +108,19 @@ export default class DoubleArrayBuilder {
         if (start_key.k === null)
             return new Int32Array();
         const start_key_k = start_key.k[position];
-        var current_char = typeof start_key_k === "number" ? start_key_k.toString() : start_key_k;
-        var i = 0;
-        var children_info = new Int32Array(length * 3);
+        let current_char = typeof start_key_k === "number" ? start_key_k.toString() : start_key_k;
+        let i = 0;
+        let children_info = new Int32Array(length * 3);
         children_info[i++] = parseInt(current_char); // char (current)
         children_info[i++] = start; // start index (current)
-        var next_pos = start;
-        var start_pos = start;
+        let next_pos = start;
+        let start_pos = start;
         for (; next_pos < start + length; next_pos++) {
             const next_key = this.keys[next_pos];
             if (next_key.k === null)
                 return new Int32Array();
             const next_key_k = next_key.k[position];
-            var next_char = typeof next_key_k === "number" ? next_key_k.toString() : next_key_k;
+            const next_char = typeof next_key_k === "number" ? next_key_k.toString() : next_key_k;
             if (current_char !== next_char) {
                 children_info[i++] = next_pos - start_pos; // length (current)
                 children_info[i++] = parseInt(next_char); // char (next)
@@ -134,19 +134,18 @@ export default class DoubleArrayBuilder {
         return children_info;
     }
     setBC(parent_id, children_info, _base) {
-        var bc = this.bc;
+        const bc = this.bc;
         bc.setBase(parent_id, _base); // Update BASE of parent node
-        var i;
-        for (i = 0; i < children_info.length; i = i + 3) {
-            var code = children_info[i];
-            var child_id = _base + code;
+        for (let i = 0; i < children_info.length; i = i + 3) {
+            const code = children_info[i];
+            const child_id = _base + code;
             // Update linked list of unused nodes
             // Assertion
             // if (child_id < 0) {
             //     throw 'assertion error: child_id is negative'
             // }
-            var prev_unused_id = -bc.getBase(child_id);
-            var next_unused_id = -bc.getCheck(child_id);
+            const prev_unused_id = -bc.getBase(child_id);
+            const next_unused_id = -bc.getCheck(child_id);
             // if (prev_unused_id < 0) {
             //     throw 'assertion error: setBC'
             // }
@@ -161,20 +160,20 @@ export default class DoubleArrayBuilder {
                 bc.setFirstUnusedNode(next_unused_id);
             }
             bc.setBase(next_unused_id, -prev_unused_id);
-            var check = parent_id; // CHECK is parent node index
+            const check = parent_id; // CHECK is parent node index
             bc.setCheck(child_id, check); // Update CHECK of child node
             // Update record
             if (code === TERM_CODE) {
-                var start_pos = children_info[i + 1];
+                const start_pos = children_info[i + 1];
                 // var len = children_info[i + 2];
                 // if (len != 1) {
                 //     throw 'assertion error: there are multiple terminal nodes. len:' + len;
                 // }
-                var value = this.keys[start_pos].v;
+                let value = this.keys[start_pos].v;
                 if (value == null) {
                     value = 0;
                 }
-                var base = -value - 1; // BASE is inverted record value
+                const base = -value - 1; // BASE is inverted record value
                 bc.setBase(child_id, base); // Update BASE of child(leaf) node
             }
         }
@@ -183,7 +182,7 @@ export default class DoubleArrayBuilder {
      * Find BASE value that all children are allocatable in double array's region
      */
     findAllocatableBase(children_info) {
-        var bc = this.bc;
+        const bc = this.bc;
         // Assertion: keys are sorted by byte order
         // var c = -1;
         // for (var i = 0; i < children_info.length; i = i + 3) {
@@ -193,8 +192,8 @@ export default class DoubleArrayBuilder {
         //     c = children_info[i];
         // }
         // iterate linked list of unused nodes
-        var _base;
-        var curr = bc.getFirstUnusedNode(); // current index
+        let _base;
+        let curr = bc.getFirstUnusedNode(); // current index
         // if (curr < 0) {
         //     throw 'assertion error: getFirstUnusedNode returns negative value'
         // }
@@ -207,10 +206,10 @@ export default class DoubleArrayBuilder {
                 // }
                 continue;
             }
-            var empty_area_found = true;
-            for (var i = 0; i < children_info.length; i = i + 3) {
-                var code = children_info[i];
-                var candidate_id = _base + code;
+            let empty_area_found = true;
+            for (let i = 0; i < children_info.length; i = i + 3) {
+                const code = children_info[i];
+                const candidate_id = _base + code;
                 if (!this.isUnusedNode(candidate_id)) {
                     // candidate_id is used node
                     // next
@@ -232,8 +231,8 @@ export default class DoubleArrayBuilder {
      * Check this double array index is unused or not
      */
     isUnusedNode(index) {
-        var bc = this.bc;
-        var check = bc.getCheck(index);
+        const bc = this.bc;
+        const check = bc.getCheck(index);
         // if (index < 0) {
         //     throw 'assertion error: isUnusedNode index:' + index;
         // }

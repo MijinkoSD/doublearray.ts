@@ -4,11 +4,11 @@ import DoubleArrayBuilder from "./doubleArrayBuilder.js";
 import DoubleArray from "./doubleArrayClass.js";
 // public methods
 const doublearray = {
-    builder: function (initial_size) {
+    builder: (initial_size) => {
         return new DoubleArrayBuilder(initial_size);
     },
-    load: function (base_buffer, check_buffer) {
-        var bc = new BC(0);
+    load: (base_buffer, check_buffer) => {
+        const bc = new BC(0);
         bc.loadBaseBuffer(base_buffer);
         bc.loadCheckBuffer(check_buffer);
         return new DoubleArray(bc);

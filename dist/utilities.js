@@ -26,9 +26,9 @@ export const newArrayBuffer = (signed, bytes, size) => {
     }
 };
 export const arrayCopy = (src, src_offset, length) => {
-    var buffer = new ArrayBuffer(length);
-    var dstU8 = new Uint8Array(buffer, 0, length);
-    var srcU8 = src.subarray(src_offset, length);
+    const buffer = new ArrayBuffer(length);
+    const dstU8 = new Uint8Array(buffer, 0, length);
+    const srcU8 = src.subarray(src_offset, length);
     dstU8.set(srcU8);
     return dstU8;
 };
@@ -40,15 +40,15 @@ export const arrayCopy = (src, src_offset, length) => {
  */
 export const stringToUtf8Bytes = (str) => {
     // Max size of 1 character is 4 bytes
-    var bytes = new Uint8Array(new ArrayBuffer(str.length * 4));
-    var i = 0, j = 0;
+    const bytes = new Uint8Array(new ArrayBuffer(str.length * 4));
+    let i = 0, j = 0;
     while (i < str.length) {
-        var unicode_code;
-        var utf16_code = str.charCodeAt(i++);
+        let unicode_code;
+        const utf16_code = str.charCodeAt(i++);
         if (utf16_code >= 0xd800 && utf16_code <= 0xdbff) {
             // surrogate pair
-            var upper = utf16_code; // high surrogate
-            var lower = str.charCodeAt(i++); // low surrogate
+            const upper = utf16_code; // high surrogate
+            const lower = str.charCodeAt(i++); // low surrogate
             if (lower >= 0xdc00 && lower <= 0xdfff) {
                 unicode_code =
                     (upper - 0xd800) * (1 << 10) + (1 << 16) + (lower - 0xdc00);
@@ -97,9 +97,9 @@ export const stringToUtf8Bytes = (str) => {
  * @return {String} String encoded by UTF-16
  */
 export const utf8BytesToString = (bytes) => {
-    var str = "";
-    var code, b1, b2, b3, b4, upper, lower;
-    var i = 0;
+    let str = "";
+    let code, b1, b2, b3, b4, upper, lower;
+    let i = 0;
     while (i < bytes.length) {
         b1 = bytes[i++];
         if (b1 < 0x80) {
