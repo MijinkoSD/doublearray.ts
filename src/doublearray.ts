@@ -18,13 +18,10 @@ const doublearray = {
   },
 };
 
-if ("undefined" === typeof module) {
+if (typeof window !== "undefined") {
   // In browser
   // @ts-ignore
   window.doublearray = doublearray;
-} else {
-  // In node
-  module.exports = doublearray;
 }
 
 export default doublearray;
